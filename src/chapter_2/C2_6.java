@@ -1,51 +1,55 @@
 package chapter_2;
 
-import linkedlist.*;
+import linkedlist.LinkedList;
+import linkedlist.Node;
 
+/**
+ * Given a circular linked list,
+ * implement an algorithm which returns the code at the beginning of the loop
+ */
 public class C2_6 {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		Integer[] array = {1,4,5,2,3,6,7};
-		FirstLastList<Integer> list = new FirstLastList<Integer>(array);
-		
-		list.last.next = list.first.next.next.next.next;
-		Node<Integer> node = findHead(list.first);
-		
-		node.displayNode();
+  public static void main(String[] args) {
+    Integer[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    LinkedList<Integer> linkedList = new LinkedList<>(array);
 
-	}
-	
-	public static Node<Integer> findHead(Node<Integer> node)
-	{
-		if(node==null)
-			return null;
-		Node<Integer> slow = node;
-		Node<Integer> fast = node;
-		
-		while(fast!=null&&fast.next!=null)
-		{
-			slow = slow.next;
-			fast = fast.next.next;
-			if(slow==fast)
-				break;
-		}
-		
-		if(fast==null||fast.next==null)
-			return null;
-		
-		slow = node;
-		while(slow!=fast)
-		{
-			slow = slow.next;
-			fast = fast.next;
-		}
-		
-		return slow;
-	}
+    System.out.println(linkedList);
 
+    Node<Integer> loopNode = linkedList.getFirstNode().next.next.next.next.next;
+    linkedList.getLastNode().next = loopNode;
+
+    System.out.println(loopNode);
+    findHead(linkedList.getFirstNode());
+  }
+
+  private static void findHead(Node<Integer> node) {
+    if(node == null) {
+      return;
+    }
+
+    Node<Integer> current = node;
+    Node<Integer> runner = current;
+
+    while(runner != null && runner.next != null) {
+      current = current.next;
+      runner = runner.next.next;
+
+      if(current == runner) {
+        break;
+      }
+    }
+
+    if(runner == null || runner.next == null) {
+      return;
+    }
+
+    current = node;
+
+    while(current != runner) {
+      current = current.next;
+      runner = runner.next;
+    }
+
+    System.out.println("The beginning of the loop is: " + current);
+  }
 }

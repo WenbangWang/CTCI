@@ -1,7 +1,6 @@
 package linkedlist;
 
 import java.util.Arrays;
-import java.util.Iterator;
 
 public class Main
 {
@@ -16,10 +15,10 @@ public class Main
 		Integer[] i2 = {4,6,3,5,6,7,9};
 		Arrays.sort(i1);
 		Arrays.sort(i2);
-		LinkedList<Integer> list1 = new LinkedList<Integer>(i1);
-		LinkedList<Integer> list2 = new LinkedList<Integer>(i2);
+		LinkedList_0<Integer> list1 = new LinkedList_0<Integer>(i1);
+		LinkedList_0<Integer> list2 = new LinkedList_0<Integer>(i2);
 		
-		LinkedList<Integer> result = new LinkedList<Integer>(mergeLinkedList(list1.first, list2.first));
+		LinkedList_0<Integer> result = new LinkedList_0<Integer>(mergeLinkedList(list1.first, list2.first));
 		System.out.println(result.size());
 		result.displayList();
 	}

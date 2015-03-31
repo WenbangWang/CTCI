@@ -1,68 +1,70 @@
 package chapter_2;
 
-
-import linkedlist.*;
+import linkedlist.LinkedList;
+import linkedlist.Node;
 
 import java.util.HashMap;
 
+/**
+ * Remove duplicates from an unsorted linked list.
+ * And solve this problem if a temporary buffer is not allowed.
+ */
 public class C2_1 {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		String str = "aaabbbccc";
-		FirstLastList<Character> list = new FirstLastList<Character>();
-		char[] charArray = str.toCharArray();
-		for(int i=0;i<charArray.length;i++)
-		{
-			list.insertLast(charArray[i]);
-		}
+  public static void main(String[] args) {
+    Integer[] array = new Integer[] {1, 2, 2, 3, 3, 4, 5, 6, 4, 3};
+    LinkedList<Integer> linkedList1 = new LinkedList<>(array);
+    LinkedList<Integer> linkedList2 = new LinkedList<>(array);
 
-        deleteDupsWithMap(list.first);
-		list.displayList();
-	}
+    System.out.println(linkedList1);
 
-    private static void deleteDupsWithMap(Node<Character> node) {
-        HashMap<Character, Boolean> map = new HashMap<Character, Boolean>();
-        Node<Character> previous = null;
+    removeDupsWithMap(linkedList2.getFirstNode());
+    removeDups(linkedList1.getFirstNode());
 
-        while(node != null) {
-            if(map.containsKey(node.data)) {
-                previous.next = node.next;
-            } else {
-                map.put(node.data, true);
-                previous = node;
-            }
+    System.out.println(linkedList1);
+    System.out.println(linkedList2);
+  }
 
-            node = node.next;
-        }
+  private static void removeDupsWithMap(Node<Integer> node) {
+    if(node == null) {
+      return;
     }
-	
-	public static void deleteDups(Node<Character> node)
-	{
-		if(node==null)
-			return;
-		Node<Character> current = node;
-		
-		while(current!=null)
-		{
-			Node<Character> runner = current;
-			while(runner.next!=null)
-			{
-				if(runner.next.data==current.data)
-				{
-					runner.next = runner.next.next;
-				}
-				else
-				{
-					runner = runner.next;
-				}
-			}
-			current = current.next;
-		}
-	}
 
+    HashMap<Integer, Boolean> map = new HashMap<>();
+    Node<Integer> current = node;
+    Node<Integer> pre = current;
+
+    while(current != null) {
+      if(map.containsKey(current.data)) {
+        pre.next = current.next;
+      } else {
+        map.put(current.data, true);
+        pre = current;
+      }
+
+      current = current.next;
+    }
+  }
+
+  private static void removeDups(Node<Integer> node) {
+    if(node == null) {
+      return;
+    }
+
+    Node<Integer> current = node;
+
+    while(current != null) {
+      Node<Integer> runner = current;
+
+      while(runner.next != null) {
+        if(runner.next.data.equals(current.data)) {
+          runner.next = runner.next.next;
+        } else {
+          runner = runner.next;
+        }
+      }
+
+      current = current.next;
+    }
+  }
 }

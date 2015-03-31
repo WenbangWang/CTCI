@@ -13,7 +13,7 @@ public class C4_4 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		ArrayList<LinkedList<TreeNode>> al = new ArrayList<LinkedList<TreeNode>>();
+		ArrayList<LinkedList_0<TreeNode>> al = new ArrayList<LinkedList_0<TreeNode>>();
 		BSearchTree tree = new BSearchTree();
 		tree.insert(1);
 		tree.insert(2);
@@ -38,17 +38,17 @@ public class C4_4 {
 
 	}
 	
-	public static ArrayList<LinkedList<TreeNode>> insertLinkedList(TreeNode root)
+	public static ArrayList<LinkedList_0<TreeNode>> insertLinkedList(TreeNode root)
 	{
-		ArrayList<LinkedList<TreeNode>> result = new ArrayList<LinkedList<TreeNode>>();
-		LinkedList<TreeNode> list = new LinkedList<TreeNode>();
+		ArrayList<LinkedList_0<TreeNode>> result = new ArrayList<LinkedList_0<TreeNode>>();
+		LinkedList_0<TreeNode> list = new LinkedList_0<TreeNode>();
 		if(root!=null)
 			list.insertFirst(root);
 		while(list.size()!=0)
 		{
 			result.add(list);
-			LinkedList<TreeNode> parents = list;
-			list = new LinkedList<TreeNode>();
+			LinkedList_0<TreeNode> parents = list;
+			list = new LinkedList_0<TreeNode>();
 			Node<TreeNode> node = parents.first;
 			TreeNode parent = node.data;
 			while(parent!=null)

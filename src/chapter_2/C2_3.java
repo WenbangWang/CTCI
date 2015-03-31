@@ -1,39 +1,30 @@
 package chapter_2;
 
-import linkedlist.FirstLastList;
+import linkedlist.LinkedList;
 import linkedlist.Node;
 
+/**
+ * Given only access to a node in the middle of a singley linked list, delete this node.
+ */
 public class C2_3 {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		String str = "aaabbbccc";
-		FirstLastList<Character> list = new FirstLastList<Character>();
-		char[] charArray = str.toCharArray();
-		for(int i=0;i<charArray.length;i++)
-		{
-			list.insertLast(charArray[i]);
-		}
-		
-		Node<Character> node = list.first.next.next.next;
-		if(deleteNode(node))
-			list.displayList();
+  public static void main(String[] args) {
+    Integer[] array = new Integer[] {1, 2, 2, 3, 3, 4, 5, 6, 4, 3};
+    LinkedList<Integer> linkedList = new LinkedList<>(array);
 
-	}
-	
-	public static boolean deleteNode(Node<Character> node)
-	{
-		if(node==null|node.next==null)
-			return false;
-		
-		Node<Character> next = node.next;
-		node.data = next.data;
-		node.next = next.next;
-		return true;
-	}
+    System.out.println(linkedList);
+    deleteNode(linkedList.getFirstNode().next.next);
+    System.out.println(linkedList);
+  }
 
+  private static boolean deleteNode(Node<Integer> node) {
+    if(node == null || node.next == null) {
+      return false;
+    }
+
+    node.data = node.next.data;
+    node.next = node.next.next;
+
+    return true;
+  }
 }

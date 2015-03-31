@@ -1,64 +1,42 @@
 package chapter_2;
 
-import linkedlist.*;
+import linkedlist.LinkedList;
+import linkedlist.Node;
 
+/**
+ * Find the kth element to the last of a linked list.
+ */
 public class C2_2 {
 
-	public static int counter = 0;
-	public static void main(String[] args) {
-		String str = "FOLLOW UP";
-		FirstLastList<Character> list = new FirstLastList<Character>();
-		char[] charArray = str.toCharArray();
-		for(int i=0;i<charArray.length;i++)
-		{
-			list.insertLast(charArray[i]);
-		}
-		
-		Node<Character> node = findk(list.first, 5);
-		System.out.println(node.data);
+  public static void main(String[] args) {
+    Integer[] array = new Integer[] {1, 2, 3, 4, 5, 6};
+    LinkedList<Integer> linkedList = new LinkedList<>(array);
 
-	}
-	
-	public static Node<Character> recFindk(Node<Character> node, int k)
-	{
-		if(node==null)
-			return null;
-		
-		Node<Character> current = recFindk(node.next, k);
-		
-		counter++;
-		if(counter==k)
-			return node;
-		return current;
-	}
-	
-	public static Node<Character> findk(Node<Character> node, int k)
-	{
-		
-		if(node==null)
-			return null;
-		
-		Node<Character> current = node;
-		
-		for(int i=0;i<k;i++)
-		{
-			if(current==null)
-				return null;
-			current = current.next;
-		}
-		
-		if(current==null)
-			return null;
-		
-		Node<Character> runner = node;
-		
-		while(current!=null)
-		{
-			runner = runner.next;
-			current = current.next;
-		}
-		
-		return runner;
-	}
+    System.out.println(linkedList);
+    System.out.println(findToLast(2, linkedList.getFirstNode()));
+  }
 
+  private static Node<Integer> findToLast(int index, Node<Integer> node) {
+    if(node == null) {
+      return null;
+    }
+
+    Node<Integer> current = node;
+    Node<Integer> runner = current;
+
+    for(int i = 0; i < index; i++) {
+      if(runner == null) {
+        return null;
+      }
+
+      runner = runner.next;
+    }
+
+    while(runner != null) {
+      current = current.next;
+      runner = runner.next;
+    }
+
+    return current;
+  }
 }
