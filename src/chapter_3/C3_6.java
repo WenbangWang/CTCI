@@ -2,40 +2,39 @@ package chapter_3;
 
 import java.util.Stack;
 
+/**
+ * Sort a stack with another stack as the buffer.
+ */
 public class C3_6 {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		Stack<Integer> stack = new Stack<Integer>();
-		stack.push(1);
-		stack.push(3);
-		stack.push(2);
-		stack.push(4);
-		stack.push(5);
-		stack = sort(stack);
-		while(!stack.isEmpty())
-		{
-			System.out.println(stack.pop());
-		}
-	}
-	
-	public static Stack<Integer> sort(Stack<Integer> s)
-	{
-		Stack<Integer> r = new Stack<Integer>();
-		while(!s.isEmpty())
-		{
-			int temp = s.pop();
-			while(!r.isEmpty()&&r.peek()>temp)
-			{
-				s.push(r.pop());
-			}
-			r.push(temp);
-		}
-		return r;
-	}
+  public static void main(String[] args) {
+    int[] array = {1 ,2 ,3, 4, 5, 6, 7, 8, 9, 10};
+    Stack<Integer> stack = new Stack<>();
 
+    for(int i = 0; i < array.length; i++) {
+      stack.push(array[i]);
+    }
+
+    sort(stack);
+
+    System.out.println(stack);
+  }
+
+  private static void sort(Stack<Integer> stack) {
+    Stack<Integer> temp = new Stack<>();
+
+    while(!stack.isEmpty()) {
+      int top = stack.pop();
+
+      while(!temp.isEmpty() && top < temp.peek()) {
+        stack.push(temp.pop());
+      }
+
+      temp.push(top);
+    }
+
+    while(!temp.isEmpty()) {
+      stack.push(temp.pop());
+    }
+  }
 }

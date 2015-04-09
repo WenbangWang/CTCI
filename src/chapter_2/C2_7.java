@@ -20,8 +20,7 @@ public class C2_7 {
   }
 
   private static boolean checkPalindrome(LinkedList<Integer> linkedList) {
-    Node<Integer> node = linkedList.getFirstNode();
-    Node<Integer> current = node;
+    Node<Integer> current = linkedList.getFirstNode();
     Node<Integer> runner = current;
     Stack<Integer> stack = new Stack<>();
 
