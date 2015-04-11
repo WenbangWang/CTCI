@@ -5,7 +5,12 @@ public class BSearchTree {
   public TreeNode root;
 
   public BSearchTree() {
-    root = new TreeNode();
+    this.root = new TreeNode();
+  }
+
+  public BSearchTree(int[] array) {
+    this.root = new TreeNode();
+    this.buildTree(array, this.root, 0, array.length - 1);
   }
 
   public TreeNode find(int key) {
@@ -130,7 +135,7 @@ public class BSearchTree {
   public void inOrder(TreeNode node) {
     if (node != null) {
       inOrder(node.leftChild);
-      System.out.println(node.data + " ");
+      System.out.print(node.data + " ");
       inOrder(node.rightChild);
     }
   }
@@ -141,5 +146,26 @@ public class BSearchTree {
       postOrder(node.rightChild);
       System.out.println(node.data + " ");
     }
+  }
+
+  private void buildTree(int[] array, TreeNode node, int start, int end) {
+    int mid;
+
+    if(start > end) {
+      return;
+    }
+
+    mid = (start + end) / 2;
+    node.data = array[mid];
+
+    if(start <= mid - 1) {
+      node.leftChild = new TreeNode();
+    }
+    this.buildTree(array, node.leftChild, start, mid - 1);
+
+    if(end >= mid + 1) {
+      node.rightChild = new TreeNode();
+    }
+    this.buildTree(array, node.rightChild, mid + 1, end);
   }
 }

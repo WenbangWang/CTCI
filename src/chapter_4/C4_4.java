@@ -1,68 +1,44 @@
 package chapter_4;
 
-import java.util.ArrayList;
+import linkedlist.LinkedList;
+import tree.BSearchTree;
+import tree.TreeNode;
 
-import linkedlist.*;
-import tree.*;
+import java.util.ArrayList;
 
 public class C4_4 {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		ArrayList<LinkedList_0<TreeNode>> al = new ArrayList<LinkedList_0<TreeNode>>();
-		BSearchTree tree = new BSearchTree();
-		tree.insert(1);
-		tree.insert(2);
-		tree.insert(3);
-		tree.insert(4);
-		tree.insert(5);
-		tree.insert(6);
-		tree.insert(7);
-		tree.insert(8);
-		tree.insert(9);
-		tree.insert(10);
-		al = insertLinkedList(tree.root);
-		for(int i=0;i<al.size();i++)
-		{
-			Node<TreeNode> node = al.get(i).first;
-			while(node!=null)
-			{
-				node.data.display();
-				node = node.next;
-			}
-		}
+  public static void main(String[] args) {
+    int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
 
-	}
-	
-	public static ArrayList<LinkedList_0<TreeNode>> insertLinkedList(TreeNode root)
-	{
-		ArrayList<LinkedList_0<TreeNode>> result = new ArrayList<LinkedList_0<TreeNode>>();
-		LinkedList_0<TreeNode> list = new LinkedList_0<TreeNode>();
-		if(root!=null)
-			list.insertFirst(root);
-		while(list.size()!=0)
-		{
-			result.add(list);
-			LinkedList_0<TreeNode> parents = list;
-			list = new LinkedList_0<TreeNode>();
-			Node<TreeNode> node = parents.first;
-			TreeNode parent = node.data;
-			while(parent!=null)
-			{
-				if(parent.leftChild!=null)
-					list.insertFirst(parent.leftChild);
-				if(parent.rightChild!=null)
-					list.insertFirst(parent.rightChild);
-				node = node.next;
-				parent = node.data;
-			}
-			result.add(list);
-		}
-		return result;
-	}
+    BSearchTree bSearchTree = new BSearchTree(array);
 
+    System.out.println(insertLinkedList(bSearchTree.root));
+  }
+
+  private static ArrayList<LinkedList<TreeNode>> insertLinkedList(TreeNode root) {
+    ArrayList<LinkedList<TreeNode>> lists = new ArrayList<>();
+    LinkedList<TreeNode> list = new LinkedList<>();
+
+    list.addFirst(root);
+
+    while(!list.isEmpty()) {
+      lists.add(list);
+
+      LinkedList<TreeNode> parents = list;
+      list = new LinkedList<>();
+
+      for(TreeNode parent : parents) {
+        if(parent.leftChild != null) {
+          list.addLast(parent.leftChild);
+        }
+
+        if(parent.rightChild != null) {
+          list.addLast(parent.rightChild);
+        }
+      }
+    }
+
+    return lists;
+  }
 }

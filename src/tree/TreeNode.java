@@ -21,4 +21,8 @@ public class TreeNode {
 		System.out.print("{" + data + "}");
 	}
 
+  @Override
+  public String toString() {
+    return "{" + this.data + "}";
+  }
 }
