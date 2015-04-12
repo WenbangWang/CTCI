@@ -6,6 +6,9 @@ import tree.TreeNode;
 
 import java.util.ArrayList;
 
+/**
+ * Create a linked list for all nodes at each depth
+ */
 public class C4_4 {
 
   public static void main(String[] args) {

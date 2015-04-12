@@ -15,13 +15,17 @@ public class BSearchTree {
 
   public TreeNode find(int key) {
     TreeNode current = root;
+
     while (current.data != key) {
-      if (key < current.data)
+      if (key < current.data) {
         current = current.leftChild;
-      else
+      } else {
         current = current.rightChild;
-      if (current == null)
+      }
+
+      if (current == null) {
         return null;
+      }
     }
     return current;
   }
@@ -29,21 +33,26 @@ public class BSearchTree {
   public void insert(int key) {
     TreeNode node = new TreeNode();
     node.data = key;
-    if (root == null)
+
+    if (root == null) {
       root = node;
-    else {
+    } else {
       TreeNode current = root;
       TreeNode parent;
+
       while (true) {
         parent = current;
+
         if (key < current.data) {
           current = current.leftChild;
+
           if (current == null) {
             parent.leftChild = current;
             return;
           }
         } else {
           current = current.rightChild;
+
           if (current == null) {
             parent.rightChild = current;
             return;
