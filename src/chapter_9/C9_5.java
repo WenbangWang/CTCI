@@ -1,58 +1,47 @@
 package chapter_9;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+/**
+ * Write a method to compute all permutations of a string.
+ */
 public class C9_5 {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		String str = "abc";
-		ArrayList<String> al = getPerm(str);
-		for(int i=0;i<al.size();i++)
-		{
-			System.out.println(al.get(i));
-		}
+  public static void main(String[] args) {
+    String string = "abcde";
 
-	}
-	
-	public static ArrayList<String> getPerm(String str)
-	{
-		if(str==null)
-			return null;
-		ArrayList<String> permutations = new ArrayList<String>();
-		if(str.length()==0)
-		{
-			permutations.add("");
-			return permutations;
-		}
-		
-		char first = str.charAt(0);
-		String remainder = str.substring(1);
-		ArrayList<String> words = getPerm(remainder);
-		
-		for(String word: words)
-		{
-			System.out.println(word);
-			for(int i=0;i<=word.length();i++)
-			{
-				String temp = insertCharAt(word, first, i);
-				permutations.add(temp);
-			}
-		}
-		
-		return permutations;
-		
-	}
-	
-	public static String insertCharAt(String word, char c, int i)
-	{
-		String start = word.substring(0, i);
-		String end = word.substring(i);
-		return start+c+end;
-	}
+    System.out.println(permutationsOfString(string));
 
+  }
+
+  private static ArrayList<String> permutationsOfString(String string) {
+    if(string == null) {
+      return null;
+    }
+
+    ArrayList<String> permutations = new ArrayList<>();
+
+    if(string.length() == 0) {
+      permutations.add("");
+    } else {
+      char first = string.charAt(0);
+      String substring = string.substring(1);
+      ArrayList<String> subPermutations = permutationsOfString(substring);
+
+      for(String permutation : subPermutations) {
+        for(int i = 0, length = permutation.length(); i <= length; i++) {
+          String temp = insertCharAt(first, permutation, i);
+
+          permutations.add(temp);
+        }
+      }
+    }
+
+    return permutations;
+  }
+
+  private static String insertCharAt(char c, String target, int index) {
+    return target.substring(0, index) + c + target.substring(index);
+  }
 }

@@ -2,61 +2,56 @@ package chapter_9;
 
 import java.util.ArrayList;
 
+/**
+ * 8 Queens
+ */
 public class C9_9 {
-	
-	private final static int num = 8;
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		ArrayList<Integer[]> result = new ArrayList<Integer[]>();
-		Integer[] columns = new Integer[num];
-		eightQueens(0,0,columns,result);
-		for(int i=0;i<result.size();i++)
-		{
-			for(int j=0;j<num;j++)
-			{
-				System.out.print("{" + j + "," + result.get(i)[j] + "}");
-			}
-			System.out.println();
-		}
+  private static final int NUMBER_OF_QUEENS = 4;
 
-	}
-	
-	public static boolean checkValid(Integer[] columns, int row1, int column1)
-	{
-		for(int row2=0;row2<row1;row2++)
-		{
-			int column2 = columns[row2];
-			
-			if(column2==column1)
-				return false;
-			if((row1-row2)==(Math.abs(column1-column2)))
-				return false;
-		}
-		return true;
-	}
-	
-	public static void eightQueens(int row, int column, Integer[] columns, ArrayList<Integer[]> result)
-	{
-		if(row==num)
-		{
-			result.add(columns.clone());
-		}
-		else
-		{
-			for(int col=0;col<num;col++)
-			{
-				if(checkValid(columns,row, col))
-				{
-					columns[row] = col;
-					eightQueens(row+1, column, columns, result);
-				}
-			}
-		}
-	}
+  public static void main(String[] args) {
+    Integer[] columns = new Integer[NUMBER_OF_QUEENS];
+    ArrayList<Integer[]> results = new ArrayList<>();
+    boolean[][] unavailableSlots = new boolean[NUMBER_OF_QUEENS][NUMBER_OF_QUEENS];
 
+    placeQueens(0, 0, columns, results);
+    print(results);
+  }
+
+  private static void placeQueens(int column, int row, Integer[] columns, ArrayList<Integer[]> results) {
+    if (row == NUMBER_OF_QUEENS) {
+      results.add(columns.clone());
+    } else {
+      for (int col = 0; col < NUMBER_OF_QUEENS; col++) {
+        if (checkValid(col, row, columns)) {
+          columns[row] = col;
+          placeQueens(column, row + 1, columns, results);
+        }
+      }
+    }
+  }
+
+  private static boolean checkValid(int currentColumn, int currentRow, Integer[] columns) {
+    for (int row = 0; row < currentRow; row++) {
+      if (currentColumn == columns[row]) {
+        return false;
+      }
+
+      if ((currentRow - row) == Math.abs(currentColumn - columns[row])) {
+        return false;
+      }
+    }
+
+
+    return true;
+  }
+
+  private static void print(ArrayList<Integer[]> results) {
+    for (int i = 0; i < results.size(); i++) {
+      for (int j = 0; j < NUMBER_OF_QUEENS; j++) {
+        System.out.print("{" + j + "," + results.get(i)[j] + "}");
+      }
+      System.out.println();
+    }
+  }
 }
