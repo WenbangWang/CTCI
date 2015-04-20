@@ -1,6 +1,6 @@
 package chapter_17;
 
-public class C17_5 {
+public class C17_5_1 {
 
 	/**
 	 * @param args
@@ -24,7 +24,7 @@ public class C17_5 {
 	{
 		if(guess.length()!=solution.length()||guess.length()!=4||solution.length()!=4)
 			return null;
-		C17_5 c = new C17_5();
+		C17_5_1 c = new C17_5_1();
 		Slots guessSlot = c.new Slots(guess);
 		Slots solutionSlot = c.new Slots(solution);
 		if(!guessSlot.valid()||!solutionSlot.valid())

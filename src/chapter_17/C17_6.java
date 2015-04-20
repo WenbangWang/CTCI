@@ -1,91 +1,80 @@
 package chapter_17;
 
+/**
+ * Given an array of integers,
+ * write a method to find indices m and n such that if you sorted elements m through n,
+ * the entire array would be sored.
+ * Minimize n - m. 
+ */
 public class C17_6 {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		int[] array = {10,9,8,7,6,5,4,3,2,1};
-		System.out.println(findMinSequence(array));
-	}
-	
-	public static int findEndOfLeft(int[] array)
-	{
-		for(int i=1;i<array.length;i++)
-		{
-			if(array[i]<array[i-1])
-				return i-1;
-		}
-		return array.length-1;
-	}
-	
-	public static int findStartOfRight(int[] array)
-	{
-		for(int i=array.length-2;i>=0;i--)
-		{
-			if(array[i]>array[i+1])
-				return i+1;
-		}
-		return 0;
-	}
-	
-	public static int shrinkLeft(int[] array, int minIndex, int end)
-	{
-		int min = array[minIndex];
-		for(int i=end;i>=0;i--)
-		{
-			if(array[i]<min)
-				return i;
-		}
-		return 0;
-	}
-	
-	public static int shrinkRight(int[] array, int maxIndex, int start)
-	{
-		int max = array[maxIndex];
-		for(int i=start;i<array.length;i++)
-		{
-			if(array[i]>max)
-				return i;
-		}
-		return array.length-1;
-	}
-	
-	public static int findMinSequence(int[] array)
-	{
-		int left = findEndOfLeft(array);
-		int right = findStartOfRight(array);
-		System.out.println("left:"+left);
-		System.out.println("right:"+right);
-		if(left==array.length-1)
-			return 0;
-		if(left==0&&right==array.length-1)
-			return array.length;
-		
-		int min = Integer.MAX_VALUE;
-		int max = Integer.MIN_VALUE;
-		
-		int minIndex = 0;
-		int maxIndex = 0;
-		for(int i=left+1;i<right;i++)
-		{
-			if(array[i]<min)
-			{
-				min = array[i];
-				minIndex = i;
-			}
-			if(array[i]>max)
-			{
-				max = array[i];
-				maxIndex = i;
-			}
-		}
-		System.out.println(maxIndex);
-		System.out.println(minIndex);
-		return shrinkRight(array, maxIndex, right)-shrinkLeft(array, minIndex, left);
-	}
+  public static void main(String[] args) {
 
+  }
+
+  private static int findIndices(int[] array) {
+    int lowerBound = findLowerBound(array);
+    int upperBound = findUpperBound(array);
+    int max = Integer.MIN_VALUE;
+    int min = Integer.MAX_VALUE;
+
+    if(lowerBound == 1) {
+      return 0;
+    }
+    if(lowerBound == array.length - 1 && upperBound == 0) {
+      return array.length - 1;
+    }
+
+    for(int i = lowerBound; i <= upperBound; i++) {
+      if(array[i] > max) {
+        max = array[i];
+      }
+
+      if(array[i] < min) {
+        min = array[i];
+      }
+    }
+
+    return shrinkRight(array, upperBound, max) - shrinkLeft(array, lowerBound, min);
+  }
+
+  private static int shrinkLeft(int[] array, int lowerBound, int min) {
+    for(int i = 0; i < lowerBound; i++) {
+      if(array[i] <= min) {
+        return i;
+      }
+    }
+
+    return 0;
+  }
+
+  private static int shrinkRight(int[] array, int upperBound, int max) {
+    for(int i = upperBound + 1; i < array.length; i++) {
+      if(array[i] >= max) {
+        return i;
+      }
+    }
+
+    return array.length - 1;
+  }
+
+  private static int findUpperBound(int[] array) {
+    for(int i = array.length - 1; i >= 1; i++) {
+      if(array[i - 1] > array[i]) {
+        return i - 1;
+      }
+    }
+
+    return 0;
+  }
+
+  private static int findLowerBound(int[] array) {
+    for(int i = 0; i < array.length - 1; i++) {
+      if(array[i + 1] < array[i]) {
+        return i + 1;
+      }
+    }
+
+    return array.length - 1;
+  }
 }

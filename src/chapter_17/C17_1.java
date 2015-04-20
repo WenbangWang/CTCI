@@ -1,33 +1,35 @@
 package chapter_17;
 
+/**
+ * Write a function to swap a number in place (no temporary variables)
+ */
 public class C17_1 {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		int[] array = {1,2,3,4,5,6,7,8,9};
-		swapInPlace(array);
-		for(int i=0;i<array.length;i++)
-		{
-			System.out.print("{" + array[i] + "}");
-		}
+  public static void main(String[] args) {
+    IntegerWrapper a = new IntegerWrapper(1);
+    IntegerWrapper b = new IntegerWrapper(2);
+    swap(a, b);
 
-	}
-	
-	public static void swapInPlace(int[] array)
-	{
-		int p = 0;
-		int q = array.length-1;
-		
-		while(q>p)
-		{
-			array[p] = array[p]^array[q];
-			array[q] = array[p]^array[q];
-			array[p] = array[p++]^array[q--];
-		}
-	}
+    System.out.println("a: " + a);
+    System.out.println("b: " + b);
+  }
 
+  private static void swap(IntegerWrapper a, IntegerWrapper b) {
+    a.value = a.value ^ b.value;
+    b.value = a.value ^ b.value;
+    a.value = a.value ^ b.value;
+  }
+
+  private static class IntegerWrapper {
+    int value;
+
+    public IntegerWrapper(int value) {
+      this.value = value;
+    }
+
+    @Override
+    public String toString() {
+      return value + "";
+    }
+  }
 }
